@@ -3,7 +3,7 @@ package org.example;
 public abstract sealed class Product permits Food, Drink {
 
     private final String name;
-    private final double price;
+    private double price;
 
     public Product(String name, double price) {
         this.name = name;
@@ -23,4 +23,7 @@ public abstract sealed class Product permits Food, Drink {
         return price;
     }
 
+    public void setPrice(double price) {
+        this.price = price;
+    }
 }

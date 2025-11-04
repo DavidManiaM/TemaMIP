@@ -4,7 +4,6 @@ import org.example.utils.OrderElement;
 import org.example.utils.SpecialOffer;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +14,7 @@ public class Order {
     public int discount = 0;
     public Optional<SpecialOffer> activeSpecialOffer;
 
-    SpecialOffer _10PercentOver5Products = new SpecialOffer() {
+    SpecialOffer _10PercentDiscountOver5Products = new SpecialOffer() {
         @Override
         public String getName() {
             return "10% reducere pentru 5 sau mai multe produse";
@@ -48,7 +47,7 @@ public class Order {
         public boolean isApplicable() {
             boolean hasPizza = false;
             for (OrderElement element : elements) {
-                if(element.getProduct().getName().equals("Pizza")) {
+                if(element.getProduct().getName().contains("Pizza")) {
                     hasPizza = true;
                     break;
                 }
@@ -57,26 +56,60 @@ public class Order {
             return hasPizza;
         }
 
+        private int nrOfPizzas(){
+            int nrPizzas = 0;
+            for (OrderElement element : elements) {
+                if(element.getProduct().getName().contains("Pizza")) {
+                    nrPizzas += element.quantity;
+                }
+            }
+            return nrPizzas;
+        }
+
         @Override
         public void applyOffer() {
-           if(isApplicable()) {
-               elements.add(new OrderElement(1, new Food("Pizza Margherita", 45, 450)));
-           }
+           elements.add(new OrderElement(nrOfPizzas(), new Food("Pizza Margherita - Oferta", 0, 450)));
+        }
+    };
+    SpecialOffer _15PercentDiscountForLemonades = new SpecialOffer() {
+        @Override
+        public String getName() {
+            return "20% reducere pentru limonade";
+        }
+
+        @Override
+        public boolean isApplicable() {
+            boolean hasLemonade = false;
+            for (OrderElement element : elements) {
+                if(element.getProduct().getName().contains("Limonada")) {
+                    hasLemonade = true;
+                    break;
+                }
+            }
+
+            return hasLemonade;
+        }
+
+        @Override
+        public void applyOffer() {
+            if(isApplicable()) {
+                for (OrderElement element : elements) {
+                    if(element.getProduct().getName().contains("Limonada")) {
+                        double discountedPrice = element.getProduct().getPrice() * (100 - 15) / 100;
+                        element.getProduct().setPrice(discountedPrice);
+                    }
+                }
+            }
         }
     };
 
 
     public Order(){
-        activeSpecialOffer = Optional.ofNullable(_10PercentOver5Products);
+        activeSpecialOffer = Optional.ofNullable(pizza1Plus1Free);
     }
 
     public double getTotal(){
         double total = 0;
-
-        if(activeSpecialOffer.isPresent()){
-            activeSpecialOffer.get().applyOffer();
-        }
-
         for (OrderElement element : elements){
             total += element.getPrice();
         }
@@ -85,6 +118,12 @@ public class Order {
 
     @Override
     public String toString() {
+
+        if(activeSpecialOffer.isPresent()){
+            activeSpecialOffer.get().applyOffer();
+        }
+
+
         StringBuilder str = new StringBuilder();
         str.append("Order {\n");
         for (OrderElement element : elements){
@@ -98,7 +137,7 @@ public class Order {
         str.append("------------------------------\n\tTotal cu TVA: " + getTotal() + "\n");
 
         String rawPriceString = String.format("%.2f", getTotal() * 100 / (100 + TVA));
-        str.append("\n\tTotal fara TVA: " + rawPriceString + "\n");
+        str.append("\tTotal fara TVA: " + rawPriceString + "\n");
 
         return str.append("}").toString();
     }
