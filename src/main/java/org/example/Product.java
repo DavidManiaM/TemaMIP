@@ -1,6 +1,6 @@
 package org.example;
 
-public abstract class Product {
+public abstract sealed class Product permits Food, Drink {
 
     private final String name;
     private final double price;

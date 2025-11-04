@@ -1,6 +1,6 @@
 package org.example;
 
-public class Food extends Product {
+public final class Food extends Product {
 
     private final int weight;
 

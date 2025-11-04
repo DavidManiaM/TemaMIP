@@ -12,5 +12,13 @@ public class Main {
 
         System.out.println(restaurant);
 
+
+
+
+
+        Order order = new Order();
+        order.addElement(3, new Food("Pizza Margherita", 45, 450));
+        System.out.println(order);
+
     }
 }
