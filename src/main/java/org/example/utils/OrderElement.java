@@ -25,7 +25,7 @@ public class OrderElement {
 
     @Override
     public String toString() {
-        return quantity + " x " + product.getName();
+        return quantity + " x " + product.getName() + ": " + product.getPrice();
     }
 
     public double getPrice(){

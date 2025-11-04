@@ -17,7 +17,9 @@ public class Main {
 
 
         Order order = new Order();
-        order.addElement(3, new Food("Pizza Margherita", 45, 450));
+        order.addElement(1, new Food("Pizza Margherita", 45, 450));
+        order.addElement(1, new Food("Paste Carbonara", 52.5, 400));
+        order.addElement(3, new Drink("Limonada", 15, 400));
         System.out.println(order);
 
     }
