@@ -13,6 +13,7 @@ public class Order {
     List<OrderElement> elements = new ArrayList<OrderElement>();
     public int discount = 0;
     public Optional<SpecialOffer> activeSpecialOffer;
+    private boolean offerApplied = false;
 
     SpecialOffer _10PercentDiscountOver5Products = new SpecialOffer() {
         @Override
@@ -108,6 +109,13 @@ public class Order {
         activeSpecialOffer = Optional.ofNullable(pizza1Plus1Free);
     }
 
+    public void applyOffer() {
+        if (!offerApplied && activeSpecialOffer.isPresent() && activeSpecialOffer.get().isApplicable()) {
+            activeSpecialOffer.get().applyOffer();
+            offerApplied = true;
+        }
+    }
+
     public double getTotal(){
         double total = 0;
         for (OrderElement element : elements){
@@ -119,25 +127,23 @@ public class Order {
     @Override
     public String toString() {
 
-        if(activeSpecialOffer.isPresent()){
-            activeSpecialOffer.get().applyOffer();
-        }
-
+        applyOffer();
 
         StringBuilder str = new StringBuilder();
         str.append("Order {\n");
         for (OrderElement element : elements){
-            str.append("\t" + element.toString() + "\n");
+            str.append("\t").append(element.toString()).append("\n");
         }
 
         if(activeSpecialOffer.isPresent() && activeSpecialOffer.get().isApplicable()){
-            str.append("------------------------------\n\tOferta activa: " + activeSpecialOffer.get().getName() + "\n");
+            str.append("------------------------------\n\tOferta activa: ").append(activeSpecialOffer.get().getName()).append("\n");
         }
 
-        str.append("------------------------------\n\tTotal cu TVA: " + getTotal() + "\n");
+        double totalWithVat = getTotal();
+        str.append("------------------------------\n\tTotal cu TVA: ").append(totalWithVat).append("\n");
 
-        String rawPriceString = String.format("%.2f", getTotal() * 100 / (100 + TVA));
-        str.append("\tTotal fara TVA: " + rawPriceString + "\n");
+        String rawPriceString = String.format("%.2f", totalWithVat * 100 / (100 + TVA));
+        str.append("\tTotal fara TVA: ").append(rawPriceString).append("\n");
 
         return str.append("}").toString();
     }
