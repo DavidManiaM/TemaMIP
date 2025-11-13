@@ -10,6 +10,22 @@ public abstract sealed class Product permits Food, Drink {
         ALCOHOL_DRINK,
     }
 
+    public String toString(ProductCategory category) {
+        switch (category) {
+            case APPETIZER:
+                return "Aperitiv";
+            case MAIN_COURSE:
+                return "Fel principal";
+            case DESSERT:
+                return "Desert";
+            case COOLING_DRINK:
+                return "Bautura racoritoare";
+            case ALCOHOL_DRINK:
+                return "Bautura alcoolica";
+        };
+        return  "";
+    }
+
     private final String name;
     private double price;
     ProductCategory category;

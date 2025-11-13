@@ -22,5 +22,10 @@ public class Main {
 //        order.addElement(3, new Drink("Limonada", 15, 400, Product.ProductCategory.COOLING_DRINK));
 //        System.out.println(order);
 
+        Menu menu = new Menu();
+//        System.out.println(menu);
+
+        menu.printCategory(menu.chooseCategory());
+
     }
 }
