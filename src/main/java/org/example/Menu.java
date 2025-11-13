@@ -57,12 +57,14 @@ public class Menu {
         int choice = 0;
 
         do {
-            System.out.println("Alege un numar valid!");
-
             try {
                 choice = sc.nextInt();
+                if(choice < 1 || choice > 5){
+                    System.out.println("Alege un numar valid!");
+                }
             } catch (InputMismatchException e) {
                 sc.nextLine();
+                System.out.println("Alege un numar valid!");
             }
 
         } while(choice < 1 || choice > 5);

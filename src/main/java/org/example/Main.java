@@ -28,7 +28,7 @@ public class Main {
         Menu menu = new Menu();
 //        System.out.println(menu);
 
-        //menu.printProductType(menu.chooseProductType());
+        menu.printProductType(menu.chooseProductType());
 
         System.out.println("Vegetarian products sorted by name:");
         menu.getProducts().stream()

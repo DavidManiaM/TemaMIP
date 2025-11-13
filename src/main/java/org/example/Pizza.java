@@ -68,7 +68,7 @@ public non-sealed class Pizza extends Food {
         System.out.println("Ingrediente pentru pizza custom:");
         StringBuilder sb = new StringBuilder();
         for (Topping topping : toppings) {
-            sb.append("\t> ").append(topping.toString()).append("\n");
+            sb.append("\t> ").append(toString(topping)).append("\n");
         }
         return sb.toString();
     }
