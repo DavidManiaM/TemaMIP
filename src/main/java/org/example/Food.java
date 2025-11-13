@@ -4,8 +4,8 @@ public final class Food extends Product {
 
     private final int weight;
 
-    public Food(String name, double price, int weight, ProductCategory category) {
-        super(name, price, category);
+    public Food(String name, double price, int weight) {
+        super(name, price);
         this.weight = weight;
     }
 

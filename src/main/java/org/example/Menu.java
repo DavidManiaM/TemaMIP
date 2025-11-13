@@ -8,16 +8,57 @@ import java.util.Scanner;
 
 public class Menu {
 
-    HashMap<String, Product> appetizers;
-    HashMap<String, Product> mainDishes;
-    HashMap<String, Product> desserts;
-    HashMap<String, Product> coolingDrinks;
-    HashMap<String, Product> alcoholicDrinks;
+    ProductCategory appetizers = new ProductCategory("Aperitive");
+    ProductCategory mainDishes;
+    ProductCategory desserts;
+    ProductCategory coolingDrinks;
+    ProductCategory alcoholicDrinks;
 
-    HashMap<Product.ProductCategory, HashMap<String, Product>> menu;
+    HashMap<ProductCategory.Type, ProductCategory> menu;
 
-    private void appendCategoryToSB(StringBuilder sb, HashMap<String, Product> category) {
-        for(Map.Entry<String, Product> entry : category.entrySet()){
+
+    Menu() {
+        appetizers = new ProductCategory("Aperitive",
+                new HashMap<>(Map.of(
+                    "Mozzarella Sticks", new Food("Mozzarella Sticks", 15, 200),
+                    "Garlic Parmesan Fries", new Food("Garlic Parmesan Fries", 18.5, 250)
+                )));
+        mainDishes = new ProductCategory("Main Dishes",
+                new HashMap<>(Map.of(
+                        "Pizza Margherita", new Food("Pizza Margherita", 45, 450),
+                        "Paste Carbonara", new Food("Paste Carbonara", 52.5, 400)
+                )));
+        desserts =  new ProductCategory("Desserts",
+                new HashMap<>(Map.of(
+                        "Lava Cake", new Food("Lava Cake", 20, 300),
+                        "Tiramisu", new Food("Tiramisu", 22, 350),
+                        "Cheesecake", new Food("Cheesecake", 30, 300)
+                )));
+        coolingDrinks = new ProductCategory("Cooling Drinks",
+                new HashMap<>(Map.of(
+                        "Limonada", new Drink("Limonada", 15, 400),
+                        "Apa plata", new Drink("Apa plata", 8, 500)
+                )));
+        alcoholicDrinks = new ProductCategory("Alcoholic",
+                new HashMap<>(Map.of(
+                        "Bere", new Drink("Bere", 8, 500),
+                        "Vin alb sec", new Drink("Vin alb sec", 8, 500),
+                        "Coniac", new Drink("Coniac", 8, 500)
+                )));
+
+        menu = new HashMap<>(Map.of(
+                ProductCategory.Type.APPETIZER, appetizers,
+                ProductCategory.Type.MAIN_COURSE, mainDishes,
+                ProductCategory.Type.DESSERT, desserts,
+                ProductCategory.Type.COOLING_DRINK, coolingDrinks,
+                ProductCategory.Type.ALCOHOL_DRINK, alcoholicDrinks
+        ));
+
+    }
+
+    private void appendCategoryToSB(StringBuilder sb, ProductCategory category) {
+        sb.append(category.getName()).append("\n");
+        for(Map.Entry<String, Product> entry : category.getProducts().entrySet()){
             sb.append("\t\t" + entry.getKey() + "\n");
         }
     }
@@ -28,21 +69,16 @@ public class Menu {
         StringBuilder sb = new StringBuilder();
         sb.append("Meniu:\n");
 
-        sb.append("\t1. Aperitive:\n");
         appendCategoryToSB(sb, appetizers);
-        sb.append("\t2. Feluri principale:\n");
         appendCategoryToSB(sb, mainDishes);
-        sb.append("\t3. Deserturi:\n");
         appendCategoryToSB(sb, desserts);
-        sb.append("\t4. Bauturi racoritoare:\n");
         appendCategoryToSB(sb, coolingDrinks);
-        sb.append("\t5. Bauturi alcoolice:\n");
         appendCategoryToSB(sb, alcoholicDrinks);
 
         return sb.toString();
     }
 
-    public HashMap<String, Product> chooseCategory(){
+    public ProductCategory chooseCategory(){
         System.out.println("Alege ce produse doresti sa vezi:");
         System.out.println("\t1. Aperitive:");
         System.out.println("\t2. Feluri principale:");
@@ -75,44 +111,10 @@ public class Menu {
 
     }
 
-    public void printCategory(HashMap<String, Product> category) {
-        for(Map.Entry<String, Product> entry : category.entrySet()){
+    public void printCategory(ProductCategory  category) {
+        for(Map.Entry<String, Product> entry : category.getProducts().entrySet()){
             System.out.println(entry.getKey());
         }
-    }
-
-    Menu() {
-        appetizers = new HashMap<>(Map.of(
-                "Mozzarella Sticks", new Food("Mozzarella Sticks", 15, 200, Product.ProductCategory.APPETIZER),
-                "Garlic Parmesan Fries", new Food("Garlic Parmesan Fries", 18.5, 250, Product.ProductCategory.APPETIZER)
-        ));
-        mainDishes = new HashMap<>(Map.of(
-                "Pizza Margherita", new Food("Pizza Margherita", 45, 450, Product.ProductCategory.MAIN_COURSE),
-                "Paste Carbonara", new Food("Paste Carbonara", 52.5, 400, Product.ProductCategory.MAIN_COURSE)
-        ));
-        desserts = new HashMap<>(Map.of(
-                "Lava Cake", new Food("Lava Cake", 20, 300, Product.ProductCategory.DESSERT),
-                "Tiramisu", new Food("Tiramisu", 22, 350, Product.ProductCategory.DESSERT),
-                "Cheesecake", new Food("Cheesecake", 30, 300, Product.ProductCategory.DESSERT)
-        ));
-        coolingDrinks = new HashMap<>(Map.of(
-                "Limonada", new Drink("Limonada", 15, 400, Product.ProductCategory.COOLING_DRINK),
-                "Apa plata", new Drink("Apa plata", 8, 500, Product.ProductCategory.COOLING_DRINK)
-        ));
-        alcoholicDrinks = new HashMap<>(Map.of(
-                "Bere", new Drink("Bere", 8, 500, Product.ProductCategory.ALCOHOL_DRINK),
-                "Vin alb sec", new Drink("Vin alb sec", 8, 500, Product.ProductCategory.ALCOHOL_DRINK),
-                "Coniac", new Drink("Coniac", 8, 500, Product.ProductCategory.ALCOHOL_DRINK)
-        ));
-        menu = new HashMap<>(Map.of(
-                Product.ProductCategory.APPETIZER, appetizers,
-                Product.ProductCategory.MAIN_COURSE, mainDishes,
-                Product.ProductCategory.DESSERT, desserts,
-                Product.ProductCategory.COOLING_DRINK, coolingDrinks,
-                Product.ProductCategory.ALCOHOL_DRINK, alcoholicDrinks
-        ));
-
-
     }
 
 }

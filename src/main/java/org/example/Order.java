@@ -69,7 +69,7 @@ public class Order {
 
         @Override
         public void applyOffer() {
-           elements.add(new OrderElement(nrOfPizzas(), new Food("Pizza Margherita - Oferta", 0, 450, Product.ProductCategory.MAIN_COURSE)));
+           elements.add(new OrderElement(nrOfPizzas(), new Food("Pizza Margherita - Oferta", 0, 450)));
         }
     };
     SpecialOffer _15PercentDiscountForLemonades = new SpecialOffer() {
