@@ -1,11 +1,16 @@
 package org.example;
 
-public final class Food extends Product {
+public sealed class Food extends Product permits Pizza {
 
     private final int weight;
 
-    public Food(String name, double price, int weight) {
-        super(name, price);
+    public Food(String name, double price, int weight,  Product.Type type) {
+        super(name, price,  type);
+        this.weight = weight;
+    }
+
+    public Food(String name, double price, int weight,  Product.Type type, boolean isVegetarian) {
+        super(name, price,  type, isVegetarian);
         this.weight = weight;
     }
 
