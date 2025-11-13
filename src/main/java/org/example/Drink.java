@@ -4,8 +4,8 @@ public final class Drink extends Product {
 
     private final int volume;
 
-    public Drink(String name, double price, int volume) {
-        super(name, price);
+    public Drink(String name, double price, int volume ,ProductCategory category) {
+        super(name, price, category);
         this.volume = volume;
     }
 
