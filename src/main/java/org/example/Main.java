@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.OptionalDouble;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -55,7 +56,10 @@ public class Main {
                 .count());
 
         System.out.println();
-        menu.printSearchProduct("Apa plata");
+        System.out.println("Cauta un produs dupa nume: ");
+        Scanner sc = new Scanner(System.in);
+        String productSearchName = sc.nextLine();
+        menu.printSearchProduct(productSearchName);
         System.out.println();
 
 
