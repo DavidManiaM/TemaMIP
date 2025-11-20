@@ -1,5 +1,6 @@
 {
   "name" : "La Andrei",
+  "TVA" : 9,
   "menu" : {
     "products" : [ {
       "name" : "Batoane de mozzarella",

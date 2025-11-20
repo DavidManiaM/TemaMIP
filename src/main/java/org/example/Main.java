@@ -12,7 +12,6 @@ import java.util.OptionalDouble;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-Restaurant restaurant = new Restaurant("La Andrei");
 
 //        Order order = new Order();
 //        order.addElement(3, new Food("Pizza Margherita", 45, 450, Product.ProductCategory.MAIN_COURSE));
@@ -59,10 +58,48 @@ Restaurant restaurant = new Restaurant("La Andrei");
 //
 //        System.out.println(specialPizza);
 
+        Path RestaurantConfigFilePath = Path.of("configRestaurant.json");
+        Path MenuConfigFilePath = Path.of("configMenu.json");
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+
+            // Serialize the Restaurant object to configRestaurant.json
+            Restaurant restaurant = new Restaurant("La Andrei");
+            String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(restaurant);
+            Files.writeString(RestaurantConfigFilePath, jsonString);
+            System.out.println("Successfully wrote to '" + RestaurantConfigFilePath + "'");
+
+            // Deserialize the Restaurant object from configRestaurant.json=
+            Restaurant newRestaurant = mapper.readValue(RestaurantConfigFilePath.toFile(), Restaurant.class);
+            System.out.println("Successfully read from '" + RestaurantConfigFilePath + "'");
+            System.out.println(newRestaurant);
+
+        } catch (JsonProcessingException e) {
+            System.err.println("JSON syntax or mapping error in '" + RestaurantConfigFilePath + "'. Please check the file content.");
+        } catch (IOException e) {
+            System.err.println("An error occurred while processing '" + RestaurantConfigFilePath + "'.");
+        }
 
 
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(restaurant);
-        Files.writeString(Path.of("config.json"), jsonString);
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+
+            // Serialize the Menu object to configMenu.json
+            Menu menu = new Menu();
+            String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(menu);
+            Files.writeString(MenuConfigFilePath, jsonString);
+            System.out.println("Successfully wrote to '" + MenuConfigFilePath + "'");
+
+            // Deserialize the Menu object from configMenu.json=
+            Menu newMenu = mapper.readValue(MenuConfigFilePath.toFile(), Menu.class);
+            System.out.println("Successfully read from '" + MenuConfigFilePath + "'");
+            System.out.println(newMenu);
+
+        } catch (JsonProcessingException e) {
+            System.err.println("JSON syntax or mapping error in '" + MenuConfigFilePath + "'. Please check the file content.");
+        } catch (IOException e) {
+            System.err.println("An error occurred while processing '" + MenuConfigFilePath + "'.");
+        }
     }
 }

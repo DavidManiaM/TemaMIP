@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class Order {
 
-    public static final int TVA = 9;
+    public static final int TVA = Restaurant.TVA;
     List<OrderElement> elements = new ArrayList<OrderElement>();
     public int discount = 0;
     public Optional<SpecialOffer> activeSpecialOffer;
