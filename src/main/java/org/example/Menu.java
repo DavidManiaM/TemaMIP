@@ -87,6 +87,15 @@ public class Menu {
         });
     }
 
+    public List<Product> getProductsOfType(Product.Type type) {
+        List<Product> list = new ArrayList<>();
+        products.forEach(product -> {
+            if(product.getType() == type)
+                list.add(product);
+        });
+        return list;
+    }
+
     public Optional<List<Product>> searchProduct(String search){
         List<Product> result = new ArrayList<>();
         for(Product p : products){
