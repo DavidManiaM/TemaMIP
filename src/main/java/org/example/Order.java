@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class Order {
 
-    public static final int TVA = 9;
+    public static final int TVA = Restaurant.TVA;
     List<OrderElement> elements = new ArrayList<OrderElement>();
     public int discount = 0;
     public Optional<SpecialOffer> activeSpecialOffer;
@@ -69,7 +69,7 @@ public class Order {
 
         @Override
         public void applyOffer() {
-           elements.add(new OrderElement(nrOfPizzas(), new Food("Pizza Margherita - Oferta", 0, 450, Product.Type.MAIN_COURSE)));
+            elements.add(new OrderElement(nrOfPizzas(), new Food("Pizza Margherita - Oferta", 0, 450, Product.Type.MAIN_COURSE)));
         }
     };
     SpecialOffer _15PercentDiscountForLemonades = new SpecialOffer() {

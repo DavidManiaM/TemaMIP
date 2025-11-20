@@ -1,5 +1,9 @@
 package org.example;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.example.utils.ProductDeserializer;
+
+@JsonDeserialize(using = ProductDeserializer.class)
 public abstract sealed class Product permits Food, Drink {
 
     public enum Type {
