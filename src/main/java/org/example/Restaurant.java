@@ -1,15 +1,20 @@
 package org.example;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Restaurant {
 
     private final String name;
-    private final List<Product> products = new ArrayList<>();
+    @JsonIgnore
+    private List<Product> products = new ArrayList<>();
+    private final Menu menu = new Menu();
 
     public Restaurant(String name) {
         this.name = name;
+        products = menu.getProducts();
     }
 
     @Override
@@ -27,5 +32,17 @@ public class Restaurant {
 
     public void addProduct(Product p) {
         products.add(p);
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Product> getProducts() {
+        return products;
     }
 }
