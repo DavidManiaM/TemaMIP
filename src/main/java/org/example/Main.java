@@ -61,8 +61,8 @@ public class Main {
         Path RestaurantConfigFilePath = Path.of("configRestaurant.json");
         Path MenuConfigFilePath = Path.of("configMenu.json");
 
+        ObjectMapper mapper = new ObjectMapper();
         try {
-            ObjectMapper mapper = new ObjectMapper();
 
             // Serialize the Restaurant object to configRestaurant.json
             Restaurant restaurant = new Restaurant("La Andrei");
@@ -70,7 +70,7 @@ public class Main {
             Files.writeString(RestaurantConfigFilePath, jsonString);
             System.out.println("Successfully wrote to '" + RestaurantConfigFilePath + "'");
 
-            // Deserialize the Restaurant object from configRestaurant.json=
+            // Deserialize the Restaurant object from configRestaurant.json
             Restaurant newRestaurant = mapper.readValue(RestaurantConfigFilePath.toFile(), Restaurant.class);
             System.out.println("Successfully read from '" + RestaurantConfigFilePath + "'");
             System.out.println(newRestaurant);
@@ -83,7 +83,6 @@ public class Main {
 
 
         try {
-            ObjectMapper mapper = new ObjectMapper();
 
             // Serialize the Menu object to configMenu.json
             Menu menu = new Menu();
@@ -91,7 +90,7 @@ public class Main {
             Files.writeString(MenuConfigFilePath, jsonString);
             System.out.println("Successfully wrote to '" + MenuConfigFilePath + "'");
 
-            // Deserialize the Menu object from configMenu.json=
+            // Deserialize the Menu object from configMenu.json
             Menu newMenu = mapper.readValue(MenuConfigFilePath.toFile(), Menu.class);
             System.out.println("Successfully read from '" + MenuConfigFilePath + "'");
             System.out.println(newMenu);

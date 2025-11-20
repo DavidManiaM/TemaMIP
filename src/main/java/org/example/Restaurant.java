@@ -39,6 +39,8 @@ public class Restaurant {
         this.name = name;
         this.menu = menu != null ? menu : new Menu();
         this.products = new ArrayList<>(this.menu.getProducts());
+        orders =  new ArrayList<>();
+        orders.add(new Order());
     }
 
     @Override
